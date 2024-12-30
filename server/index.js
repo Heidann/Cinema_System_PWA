@@ -15,13 +15,16 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
+// swagger docs
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Routes
 import movieRoutes from "./routes/movie.routes.js";
+import cinemaRoutes from "./routes/cinema.routes.js";
 
 app.use("/api/movies", movieRoutes);
+app.use("/api/cinemas", cinemaRoutes);
 
 // Start Server
 app.listen(PORT, () => {

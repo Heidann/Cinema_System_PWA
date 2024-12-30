@@ -1,24 +1,24 @@
 import { Router } from "express";
-import * as movieController from "../controllers/movie.controller.js";
+import * as cinemaController from "../controllers/cinema.controller.js";
 
 const router = Router();
 
 /**
  * @swagger
  * tags:
- *   name: Movies
- *   description: API for movies in the system
+ *   name: Cinemas
+ *   description: API for cinemas in the system
  */
 
 /**
  * @swagger
- * /api/movies:
+ * /api/cinemas:
  *   get:
- *     summary: Retrieve a list of movies
- *     tags: [Movies]
+ *     summary: Retrieve a list of cinemas
+ *     tags: [Cinemas]
  *     responses:
  *       200:
- *         description: A list of movies
+ *         description: A list of cinemas
  *         content:
  *           application/json:
  *             schema:
@@ -28,35 +28,33 @@ const router = Router();
  *                 properties:
  *                   id:
  *                     type: integer
- *                   title:
+ *                   name:
  *                     type: string
- *                   description:
+ *                   city:
  *                     type: string
- *                   duration:
- *                     type: integer
- *                   image_url:
+ *                   address:
  *                     type: string
- *                   trailer_url:
- *                     type: string
+ *                   is_deleted:
+ *                     type: boolean
  */
-router.get("/", movieController.getAllMovies);
+router.get("/", cinemaController.getAllCinemas);
 
 /**
  * @swagger
- * /api/movies/{id}:
+ * /api/cinemas/{id}:
  *   get:
- *     summary: Retrieve a movie by id
- *     tags: [Movies]
+ *     summary: Retrieve a cinema by id
+ *     tags: [Cinemas]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: The movie ID
+ *         description: The cinema ID
  *     responses:
  *       200:
- *         description: A movie
+ *         description: A cinema
  *         content:
  *           application/json:
  *             schema:
@@ -64,27 +62,25 @@ router.get("/", movieController.getAllMovies);
  *               properties:
  *                 id:
  *                   type: integer
- *                 title:
+ *                 name:
  *                   type: string
- *                 description:
+ *                 city:
  *                   type: string
- *                 duration:
- *                   type: integer
- *                 image_url:
+ *                 address:
  *                   type: string
- *                 trailer_url:
- *                   type: string
+ *                 is_deleted:
+ *                   type: boolean
  *       404:
- *         description: Movie not found
+ *         description: Cinema not found
  */
-router.get("/:id", movieController.getMovieById);
+router.get("/:id", cinemaController.getCinemaById);
 
 /**
  * @swagger
- * /api/movies:
+ * /api/cinemas:
  *   post:
- *     summary: Create a new movie
- *     tags: [Movies]
+ *     summary: Create a new cinema
+ *     tags: [Cinemas]
  *     requestBody:
  *       required: true
  *       content:
@@ -92,19 +88,15 @@ router.get("/:id", movieController.getMovieById);
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               name:
  *                 type: string
- *               description:
+ *               city:
  *                 type: string
- *               duration:
- *                 type: integer
- *               image_url:
- *                 type: string
- *               trailer_url:
+ *               address:
  *                 type: string
  *     responses:
  *       201:
- *         description: The created movie
+ *         description: The created cinema
  *         content:
  *           application/json:
  *             schema:
@@ -112,34 +104,32 @@ router.get("/:id", movieController.getMovieById);
  *               properties:
  *                 id:
  *                   type: integer
- *                 title:
+ *                 name:
  *                   type: string
- *                 description:
+ *                 city:
  *                   type: string
- *                 duration:
- *                   type: integer
- *                 image_url:
+ *                 address:
  *                   type: string
- *                 trailer_url:
- *                   type: string
+ *                 is_deleted:
+ *                   type: boolean
  *       500:
  *         description: Internal server error
  */
-router.post("/", movieController.createMovie);
+router.post("/", cinemaController.createCinema);
 
 /**
  * @swagger
- * /api/movies/{id}:
+ * /api/cinemas/{id}:
  *   put:
- *     summary: Update an existing movie
- *     tags: [Movies]
+ *     summary: Update an existing cinema
+ *     tags: [Cinemas]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: The movie ID
+ *         description: The cinema ID
  *     requestBody:
  *       required: true
  *       content:
@@ -147,19 +137,16 @@ router.post("/", movieController.createMovie);
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               name:
  *                 type: string
- *               description:
+ *               city:
  *                 type: string
- *               duration:
- *                 type: integer
- *               image_url:
+ *               address:
  *                 type: string
- *               trailer_url:
- *                 type: string
+ *
  *     responses:
  *       200:
- *         description: The updated movie
+ *         description: The updated cinema
  *         content:
  *           application/json:
  *             schema:
@@ -167,44 +154,41 @@ router.post("/", movieController.createMovie);
  *               properties:
  *                 id:
  *                   type: integer
- *                 title:
+ *                 name:
  *                   type: string
- *                 description:
+ *                 city:
  *                   type: string
- *                 duration:
- *                   type: integer
- *                 image_url:
+ *                 address:
  *                   type: string
- *                 trailer_url:
- *                   type: string
+ *
  *       404:
- *         description: Movie not found
+ *         description: Cinema not found
  *       500:
  *         description: Internal server error
  */
-router.put("/:id", movieController.updateMovie);
+router.put("/:id", cinemaController.updateCinema);
 
 /**
  * @swagger
- * /api/movies/{id}:
+ * /api/cinemas/{id}:
  *   delete:
- *     summary: Delete a movie
- *     tags: [Movies]
+ *     summary: Delete a cinema
+ *     tags: [Cinemas]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: The movie ID
+ *         description: The cinema ID
  *     responses:
  *       200:
- *         description: Movie deleted successfully
+ *         description: Cinema deleted successfully
  *       404:
- *         description: Movie not found
+ *         description: Cinema not found
  *       500:
  *         description: Internal server error
  */
-router.delete("/:id", movieController.deleteMovie);
+router.delete("/:id", cinemaController.deleteCinema);
 
 export default router;
