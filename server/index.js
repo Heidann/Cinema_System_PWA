@@ -12,19 +12,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
-// Connect to Database
-db.connect((err) => {
-  if (err) {
-    console.error("Error connecting to the database:", err);
-  } else {
-    console.log("Connected to the database");
-  }
-});
+// Routes
+import movieRoutes from "./routes/movie.routes.js";
 
-// Home Route
-app.get("/", (req, res) => {
-  res.send("Welcome to Cinema Booking API");
-});
+app.use("/api/movies", movieRoutes);
 
 // Start Server
 app.listen(PORT, () => {
