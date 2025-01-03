@@ -1,25 +1,19 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.config.js";
 
-const Movies = sequelize.define(
-  "movie",
+const FoodDrink = sequelize.define(
+  "food_drink",
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    title: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-    },
-    duration: {
-      type: DataTypes.INTEGER,
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     image_url: {
-      type: DataTypes.TEXT,
-    },
-    trailer_url: {
       type: DataTypes.TEXT,
     },
     is_deleted: {
@@ -34,4 +28,4 @@ const Movies = sequelize.define(
   }
 );
 
-export default Movies;
+export default FoodDrink;

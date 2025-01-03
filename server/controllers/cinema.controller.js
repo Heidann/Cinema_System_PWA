@@ -1,5 +1,5 @@
 import pool from "../config/db.config.js";
-import Cinemas from "../models/cinemas.model.js";
+import Cinemas from "../models/cinema.model.js";
 
 /* Desc: get all cinemas
 Route: GET /api/cinemas

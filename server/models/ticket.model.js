@@ -1,21 +1,28 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.config.js";
 
-const Cinemas = sequelize.define(
-  "cinemas",
+const Ticket = sequelize.define(
+  "ticket",
   {
-    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    cinema_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    city: {
-      type: DataTypes.STRING,
+    capacity: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      validate: {
+        min: 1,
+      },
     },
     is_deleted: {
       type: DataTypes.TINYINT,
@@ -29,4 +36,4 @@ const Cinemas = sequelize.define(
   }
 );
 
-export default Cinemas;
+export default Ticket;
