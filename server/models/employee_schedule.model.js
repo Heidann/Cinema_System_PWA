@@ -29,7 +29,7 @@ const EmployeeSchedule = sequelize.define(
       type: DataTypes.TEXT,
     },
   },
-  { timestamps: true }
+  { tableName: "employee_schedule", timestamps: true }
 );
 
 export default EmployeeSchedule;

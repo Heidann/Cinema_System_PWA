@@ -28,6 +28,7 @@ const Movies = sequelize.define(
     },
   },
   {
+    tableName: "movie",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

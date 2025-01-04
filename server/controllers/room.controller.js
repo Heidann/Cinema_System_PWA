@@ -7,9 +7,12 @@ Access: Proteced */
 const getAllRoomByCinemaId = async (req, res) => {
   try {
     const { cinemaId } = req.body;
-    const roomsList = await Room.findAll({
-      where: { cinema_id: cinemaId, is_deleted: 0 },
-    });
+    const roomsList = await Room.findAll(
+      { attributes: ["id", "name", "capacity"] },
+      {
+        where: { cinema_id: cinemaId, is_deleted: 0 },
+      }
+    );
     res.json(roomsList);
   } catch (error) {
     res.status(500).json({ message: error.message });

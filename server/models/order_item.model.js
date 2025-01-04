@@ -1,18 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.config.js";
 
-// CREATE TABLE order_items (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     order_id INT NOT NULL,
-//     item_type ENUM('ticket', 'food_drink') NOT NULL,
-//     item_id INT NOT NULL,
-//     quantity INT NOT NULL CHECK (quantity > 0),
-//     price DECIMAL(10, 2) NOT NULL,
-//     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-//     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-//     FOREIGN KEY (order_id) REFERENCES orders(id)
-// );
-
 const OrderItem = sequelize.define(
   "order_item",
   {
@@ -46,6 +34,7 @@ const OrderItem = sequelize.define(
     },
   },
   {
+    tableName: "order_item",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

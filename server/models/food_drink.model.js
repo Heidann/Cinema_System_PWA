@@ -22,6 +22,7 @@ const FoodDrink = sequelize.define(
     },
   },
   {
+    tableName: "food_drink",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

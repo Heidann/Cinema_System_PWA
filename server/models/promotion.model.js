@@ -27,7 +27,7 @@ const Promotion = sequelize.define(
       defaultValue: true,
     },
   },
-  { timestamps: true }
+  { tableName: "promotion", timestamps: true }
 );
 
 export default Promotion;

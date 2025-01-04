@@ -36,7 +36,7 @@ const EmployeeSalary = sequelize.define(
       defaultValue: "unpaid",
     },
   },
-  { timestamps: true }
+  { tableName: "employee_salary", timestamps: true }
 );
 
 export default EmployeeSalary;

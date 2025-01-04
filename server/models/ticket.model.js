@@ -13,23 +13,21 @@ const Ticket = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    capacity: {
+    schedule_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        min: 1,
-      },
     },
-    is_deleted: {
-      type: DataTypes.TINYINT,
-      defaultValue: 0,
+    seat_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
     },
   },
   {
+    tableName: "ticket",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

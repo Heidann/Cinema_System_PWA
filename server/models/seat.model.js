@@ -14,7 +14,7 @@ const Seat = sequelize.define(
       allowNull: false,
     },
     is_status: {
-      type: DataTypes.ENUM("available", "unavailable"),
+      type: DataTypes.ENUM("available", "booked", "unavailable"),
       defaultValue: "available",
     },
     is_deleted: {
@@ -23,6 +23,7 @@ const Seat = sequelize.define(
     },
   },
   {
+    tableName: "seat",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

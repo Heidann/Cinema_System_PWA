@@ -38,6 +38,7 @@ const Room = sequelize.define(
     },
   },
   {
+    tableName: "room",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
