@@ -7,7 +7,7 @@ Access: Public */
 const getAllMovies = async (req, res) => {
   try {
     const moviesList = await Movies.findAll({
-      where: { is_deleted: 0 },
+      where: { is_deleted: false },
     });
     res.json(moviesList);
   } catch (error) {
@@ -22,7 +22,7 @@ const getMovieById = async (req, res) => {
   try {
     const { id } = req.params;
     const movie = await Movies.findOne({
-      where: { id, is_deleted: 0 },
+      where: { id, is_deleted: false },
     });
     if (!movie) {
       return res.status(404).json({ message: "Movie not found" });
@@ -61,7 +61,7 @@ const updateMovie = async (req, res) => {
     const { title, description, duration, image_url, trailer_url } = req.body;
     const [updatedRows] = await Movies.update(
       { title, description, duration, image_url, trailer_url },
-      { where: { id, is_deleted: 0 } }
+      { where: { id, is_deleted: false } }
     );
     if (updatedRows === 0) {
       return res.status(404).json({ message: "Movie not found" });
@@ -80,8 +80,8 @@ const deleteMovie = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedRows = await Movies.update(
-      { is_deleted: 1 },
-      { where: { id, is_deleted: 0 } }
+      { is_deleted: true },
+      { where: { id, is_deleted: false } }
     );
     if (deletedRows === 0) {
       return res.status(404).json({ message: "Movie not found" });

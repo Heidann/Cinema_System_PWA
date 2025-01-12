@@ -6,12 +6,12 @@ const router = Router();
  * @swagger
  * tags:
  *   name: Employee
- *   description: API for employees in the system
+ *   description: API for employee management in the system
  */
 
 /**
  * @swagger
- * /api/employee:
+ * /api/employee/get-all-employee:
  *   get:
  *     summary: Retrieve a list of employees
  *     tags: [Employee]
@@ -34,7 +34,7 @@ const router = Router();
  *                   salary:
  *                     type: number
  */
-router.get("/", employeeController.getAllEmployees);
+router.get("/get-all-employee", employeeController.getAllEmployees);
 
 /**
  * @swagger
@@ -72,9 +72,9 @@ router.get("/:id", employeeController.getEmployeeById);
 
 /**
  * @swagger
- * /api/employee/create-employee:
+ * /api/employee/create:
  *   post:
- *     summary: Create a new employee
+ *     summary: Create a new employee and employee account
  *     tags: [Employee]
  *     requestBody:
  *       required: true
@@ -98,8 +98,6 @@ router.get("/:id", employeeController.getEmployeeById);
  *               username:
  *                type: string
  *               password:
- *                type: string
- *               role:
  *                type: string
  *     responses:
  *       201:
@@ -127,16 +125,14 @@ router.get("/:id", employeeController.getEmployeeById);
  *                  type: string
  *                 password:
  *                  type: string
- *                 role:
- *                  type: string
  *       500:
  *         description: Internal server error
  */
-router.post("/create-employee", employeeController.createEmployeeWithAccount);
+router.post("/create", employeeController.createEmployeeWithAccount);
 
 /**
  * @swagger
- * /api/employee/{id}:
+ * /api/employee/edit/{id}:
  *   put:
  *     summary: Update an existing employee
  *     tags: [Employee]
@@ -191,11 +187,11 @@ router.post("/create-employee", employeeController.createEmployeeWithAccount);
  *       500:
  *         description: Internal server error
  */
-router.put("/:id", employeeController.updateEmployee);
+router.put("/edit/:id", employeeController.updateEmployee);
 
 /**
  * @swagger
- * /api/employee/{id}:
+ * /api/employee/delete/{id}:
  *   delete:
  *     summary: Delete an employee
  *     tags: [Employee]
@@ -214,6 +210,6 @@ router.put("/:id", employeeController.updateEmployee);
  *       500:
  *         description: Internal server error
  */
-router.delete("/:id", employeeController.deleteEmployee);
+router.delete("/delete/:id", employeeController.deleteEmployee);
 
 export default router;

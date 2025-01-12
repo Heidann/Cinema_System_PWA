@@ -36,7 +36,11 @@ const EmployeeSalary = sequelize.define(
       defaultValue: "unpaid",
     },
   },
-  { tableName: "employee_salary", timestamps: true }
+  { tableName: "employee_salaries", timestamps: true }
 );
+
+// EmployeeSalary.associate = (models) => {
+//   EmployeeSalary.belongsTo(models.Employee, { foreignKey: "employee_id" });
+// };
 
 export default EmployeeSalary;

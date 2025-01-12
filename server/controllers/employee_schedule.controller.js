@@ -32,6 +32,25 @@ const getEmployeeScheduleById = async (req, res) => {
   }
 };
 
+// getWorkSchedulebyId
+/* Desc: get employee schedule by id
+Route: GET /api/employee_schedule/work-schedule/:id
+Access: Protected */
+const getWorkSchedulebyId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const employeeSchedule = await EmployeeSchedule.findOne({
+      where: { id, is_deleted: 0 },
+    });
+    if (!employeeSchedule) {
+      return res.status(404).json({ message: "Employee schedule not found" });
+    }
+    res.json(employeeSchedule);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 /* Desc: create a new employee schedule
 Route: POST /api/employee_schedule
 Access: Protected */
@@ -98,7 +117,8 @@ const deleteEmployeeSchedule = async (req, res) => {
 
 export {
   getAllEmployeeSchedules,
-  getEmployeeScheduleById,
+  // getEmployeeScheduleById,
+  getWorkSchedulebyId,
   createEmployeeSchedule,
   updateEmployeeSchedule,
   deleteEmployeeSchedule,

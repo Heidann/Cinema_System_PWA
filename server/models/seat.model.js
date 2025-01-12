@@ -18,16 +18,20 @@ const Seat = sequelize.define(
       defaultValue: "available",
     },
     is_deleted: {
-      type: DataTypes.TINYINT,
-      defaultValue: 0,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
-    tableName: "seat",
+    tableName: "seats",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
   }
 );
 
+// Seat.associate = (models) => {
+//   Seat.belongsTo(models.Room, { foreignKey: "room_id" });
+//   Seat.hasMany(models.Ticket, { foreignKey: "seat_id" });
+// };
 export default Seat;

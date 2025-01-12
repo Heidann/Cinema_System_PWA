@@ -1,17 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.config.js";
-// CREATE TABLE rooms (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     cinema_id INT NOT NULL,
-//     name VARCHAR(255) NOT NULL,
-//     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-//     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-//     is_deleted TINYINT(1) DEFAULT 0,
-//     FOREIGN KEY (cinema_id) REFERENCES cinemas(id),
-//     UNIQUE (cinema_id, name)
-// );
-// ALTER TABLE rooms
-// ADD COLUMN capacity INT NOT NULL CHECK (capacity > 0);
 
 const Room = sequelize.define(
   "room",
@@ -33,16 +21,21 @@ const Room = sequelize.define(
       },
     },
     is_deleted: {
-      type: DataTypes.TINYINT,
-      defaultValue: 0,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
-    tableName: "room",
+    tableName: "rooms",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
   }
 );
+// Room.associate = (models) => {
+//   Room.belongsTo(models.Cinema, { foreignKey: "cinema_id" });
+//   Room.hasMany(models.Seat, { foreignKey: "room_id" });
+//   Room.hasMany(models.Schedule, { foreignKey: "room_id" });
+// };
 
 export default Room;

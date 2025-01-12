@@ -3,9 +3,15 @@ import Seat from "../models/seat.model.js";
 /* Desc: get all seats
 Route: GET /api/seats
 Access: Protected */
-const getAllSeats = async (req, res) => {
+const getAllSeatsByRoomId = async (req, res) => {
   try {
-    const seats = await Seat.findAll({ where: { is_deleted: 0 } });
+    const { room_id } = req.query;
+    const seats = await Seat.findAll(
+      {
+        attributes: ["seat_number", "is_status"],
+      },
+      { where: { room_id, is_deleted: false } }
+    );
     res.json(seats);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -18,7 +24,7 @@ Access: Protected */
 const getSeatById = async (req, res) => {
   try {
     const { id } = req.params;
-    const seat = await Seat.findOne({ where: { id, is_deleted: 0 } });
+    const seat = await Seat.findOne({ where: { id, is_deleted: false } });
     if (!seat) {
       return res.status(404).json({ message: "Seat not found" });
     }
@@ -50,7 +56,7 @@ const updateSeat = async (req, res) => {
     const { room_id, seat_number, is_status } = req.body;
     const [updatedRows] = await Seat.update(
       { room_id, seat_number, is_status },
-      { where: { id, is_deleted: 0 } }
+      { where: { id, is_deleted: false } }
     );
     if (updatedRows === 0) {
       return res.status(404).json({ message: "Seat not found" });
@@ -69,8 +75,8 @@ const deleteSeat = async (req, res) => {
   try {
     const { id } = req.params;
     const [updatedRows] = await Seat.update(
-      { is_deleted: 1 },
-      { where: { id, is_deleted: 0 } }
+      { is_deleted: true },
+      { where: { id, is_deleted: false } }
     );
     if (updatedRows === 0) {
       return res.status(404).json({ message: "Seat not found" });
@@ -81,4 +87,4 @@ const deleteSeat = async (req, res) => {
   }
 };
 
-export { getAllSeats, getSeatById, createSeat, updateSeat, deleteSeat };
+export { getAllSeatsByRoomId, getSeatById, createSeat, updateSeat, deleteSeat };

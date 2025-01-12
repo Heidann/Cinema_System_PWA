@@ -18,16 +18,21 @@ const Cinema = sequelize.define(
       allowNull: false,
     },
     is_deleted: {
-      type: DataTypes.TINYINT,
-      defaultValue: 0,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
-    tableName: "cinema",
+    tableName: "cinemas",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
   }
 );
+
+// Cinema.associate = (models) => {
+//   Cinema.hasMany(models.Room, { foreignKey: "cinema_id" });
+//   Cinema.hasMany(models.Ticket, { foreignKey: "cinema_id" });
+// };
 
 export default Cinema;

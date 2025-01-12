@@ -29,6 +29,7 @@ const Employee = sequelize.define(
         "technician"
       ),
       allowNull: false,
+      defaultValue: "staff",
     },
     salary: {
       type: DataTypes.DECIMAL(10, 2),
@@ -39,16 +40,19 @@ const Employee = sequelize.define(
       allowNull: false,
     },
     is_deleted: {
-      type: DataTypes.TINYINT,
-      defaultValue: 0,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
+    tableName: "employees",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
-    tableName: "employee",
   }
 );
+// Employee.associate = (models) => {
+//   Employee.hasMany(models.EmployeeSchedule, { foreignKey: "employee_id" });
+// };
 
 export default Employee;

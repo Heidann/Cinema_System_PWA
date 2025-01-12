@@ -6,13 +6,10 @@ Route: GET /api/rooms
 Access: Proteced */
 const getAllRoomByCinemaId = async (req, res) => {
   try {
-    const { cinemaId } = req.body;
-    const roomsList = await Room.findAll(
-      { attributes: ["id", "name", "capacity"] },
-      {
-        where: { cinema_id: cinemaId, is_deleted: 0 },
-      }
-    );
+    const { cinema_id } = req.query;
+    const roomsList = await Room.findAll({
+      where: { cinema_id, is_deleted: false },
+    });
     res.json(roomsList);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -26,7 +23,7 @@ const getRoomById = async (req, res) => {
   try {
     const { id } = req.params;
     const room = await Room.findOne({
-      where: { id, is_deleted: 0 },
+      where: { id, is_deleted: false },
     });
     if (!room) {
       return res.status(404).json({ message: "Room not found" });
@@ -64,7 +61,7 @@ const updateRoom = async (req, res) => {
     const [updatedRows] = await Room.update(
       { name, capacity },
       {
-        where: { id, is_deleted: 0 },
+        where: { id, is_deleted: false },
       }
     );
     if (updatedRows === 0) {
@@ -84,8 +81,8 @@ const deleteRoom = async (req, res) => {
   try {
     const { id } = req.params;
     const [updatedRows] = await Room.update(
-      { is_deleted: 1 },
-      { where: { id, is_deleted: 0 } }
+      { is_deleted: true },
+      { where: { id, is_deleted: false } }
     );
     if (updatedRows === 0) {
       return res.status(404).json({ message: "Room not found" });

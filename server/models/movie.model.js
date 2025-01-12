@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.config.js";
 
-const Movies = sequelize.define(
+const Movie = sequelize.define(
   "movie",
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -22,17 +22,18 @@ const Movies = sequelize.define(
     trailer_url: {
       type: DataTypes.TEXT,
     },
+
     is_deleted: {
-      type: DataTypes.TINYINT,
-      defaultValue: 0,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
-    tableName: "movie",
+    tableName: "movies",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
   }
 );
 
-export default Movies;
+export default Movie;

@@ -19,7 +19,13 @@ const EmployeeAccount = sequelize.define(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("admin", "manager", "staff"),
+      type: DataTypes.ENUM(
+        "manager",
+        "cashier",
+        "staff",
+        "cleaner",
+        "technician"
+      ),
       defaultValue: "staff",
       allowNull: false,
     },
@@ -28,9 +34,12 @@ const EmployeeAccount = sequelize.define(
     },
   },
   {
-    tableName: "employee_account",
+    tableName: "employee_accounts",
     timestamps: false,
   }
 );
+// EmployeeAccount.associate = (models) => {
+//   EmployeeAccount.belongsTo(models.Employee, { foreignKey: "employee_id" });
+// };
 
 export default EmployeeAccount;

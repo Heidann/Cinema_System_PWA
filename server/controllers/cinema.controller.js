@@ -7,7 +7,7 @@ Access: Public */
 const getAllCinemas = async (req, res) => {
   try {
     const cinemasList = await Cinemas.findAll({
-      where: { is_deleted: 0 },
+      where: { is_deleted: false },
     });
     res.json(cinemasList);
   } catch (error) {
@@ -22,7 +22,7 @@ const getCinemaById = async (req, res) => {
   try {
     const { id } = req.params;
     const cinema = await Cinemas.findOne({
-      where: { id, is_deleted: 0 },
+      where: { id, is_deleted: false },
     });
     if (!cinema) {
       return res.status(404).json({ message: "Cinema not found" });
@@ -80,9 +80,9 @@ const deleteCinema = async (req, res) => {
   try {
     const { id } = req.params;
     const [deleted] = await Cinemas.update(
-      { is_deleted: 1 },
+      { is_deleted: true },
       {
-        where: { id, is_deleted: 0 },
+        where: { id, is_deleted: false },
       }
     );
     if (deleted === 0) {

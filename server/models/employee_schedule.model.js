@@ -10,7 +10,7 @@ const EmployeeSchedule = sequelize.define(
       allowNull: false,
     },
     work_date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     start_time: {
@@ -29,7 +29,10 @@ const EmployeeSchedule = sequelize.define(
       type: DataTypes.TEXT,
     },
   },
-  { tableName: "employee_schedule", timestamps: true }
+  { tableName: "employee_schedules", timestamps: true }
 );
+// EmployeeSchedule.associate = (models) => {
+//   EmployeeSchedule.belongsTo(models.Employee, { foreignKey: "employee_id" });
+// };
 
 export default EmployeeSchedule;

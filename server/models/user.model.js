@@ -24,17 +24,26 @@ const User = sequelize.define(
     phone_number: {
       type: DataTypes.STRING,
     },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
     is_deleted: {
-      type: DataTypes.TINYINT,
-      defaultValue: 0,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
-    tableName: "user",
+    tableName: "users",
     timestamps: true,
-    createdAt: "created_at",
-    updatedAt: "updated_at",
   }
 );
 
+// User.associate = (models) => {
+//   User.hasMany(models.Order, { foreignKey: "user_id" });
+// };
 export default User;

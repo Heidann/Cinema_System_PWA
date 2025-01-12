@@ -12,7 +12,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/movies:
+ * /api/movie/get-all-movies:
  *   get:
  *     summary: Retrieve a list of movies
  *     tags: [Movies]
@@ -39,11 +39,11 @@ const router = Router();
  *                   trailer_url:
  *                     type: string
  */
-router.get("/", movieController.getAllMovies);
+router.get("/get-all-movies", movieController.getAllMovies);
 
 /**
  * @swagger
- * /api/movies/{id}:
+ * /api/movie/{id}:
  *   get:
  *     summary: Retrieve a movie by id
  *     tags: [Movies]
@@ -81,7 +81,7 @@ router.get("/:id", movieController.getMovieById);
 
 /**
  * @swagger
- * /api/movies:
+ * /api/movie/create-movie:
  *   post:
  *     summary: Create a new movie
  *     tags: [Movies]
@@ -125,11 +125,11 @@ router.get("/:id", movieController.getMovieById);
  *       500:
  *         description: Internal server error
  */
-router.post("/", movieController.createMovie);
+router.post("/create", movieController.createMovie);
 
 /**
  * @swagger
- * /api/movies/{id}:
+ * /api/movie/edit/{id}:
  *   put:
  *     summary: Update an existing movie
  *     tags: [Movies]
@@ -182,11 +182,11 @@ router.post("/", movieController.createMovie);
  *       500:
  *         description: Internal server error
  */
-router.put("/:id", movieController.updateMovie);
+router.put("/edit/:id", movieController.updateMovie);
 
 /**
  * @swagger
- * /api/movies/{id}:
+ * /api/movie/delete/{id}:
  *   delete:
  *     summary: Delete a movie
  *     tags: [Movies]
@@ -205,6 +205,6 @@ router.put("/:id", movieController.updateMovie);
  *       500:
  *         description: Internal server error
  */
-router.delete("/:id", movieController.deleteMovie);
+router.delete("/delete/:id", movieController.deleteMovie);
 
 export default router;

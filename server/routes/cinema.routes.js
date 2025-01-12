@@ -12,7 +12,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/cinemas:
+ * /api/cinema/get-all-cinemas:
  *   get:
  *     summary: Retrieve a list of cinemas
  *     tags: [Cinemas]
@@ -37,11 +37,11 @@ const router = Router();
  *                   is_deleted:
  *                     type: boolean
  */
-router.get("/", cinemaController.getAllCinemas);
+router.get("/get-all-cinemas", cinemaController.getAllCinemas);
 
 /**
  * @swagger
- * /api/cinemas/{id}:
+ * /api/cinema/{id}:
  *   get:
  *     summary: Retrieve a cinema by id
  *     tags: [Cinemas]
@@ -77,7 +77,7 @@ router.get("/:id", cinemaController.getCinemaById);
 
 /**
  * @swagger
- * /api/cinemas:
+ * /api/cinema/create:
  *   post:
  *     summary: Create a new cinema
  *     tags: [Cinemas]
@@ -115,11 +115,11 @@ router.get("/:id", cinemaController.getCinemaById);
  *       500:
  *         description: Internal server error
  */
-router.post("/", cinemaController.createCinema);
+router.post("/create", cinemaController.createCinema);
 
 /**
  * @swagger
- * /api/cinemas/{id}:
+ * /api/cinema/edit/{id}:
  *   put:
  *     summary: Update an existing cinema
  *     tags: [Cinemas]
@@ -166,11 +166,11 @@ router.post("/", cinemaController.createCinema);
  *       500:
  *         description: Internal server error
  */
-router.put("/:id", cinemaController.updateCinema);
+router.put("/edit/:id", cinemaController.updateCinema);
 
 /**
  * @swagger
- * /api/cinemas/{id}:
+ * /api/cinema/delete/{id}:
  *   delete:
  *     summary: Delete a cinema
  *     tags: [Cinemas]
@@ -189,6 +189,6 @@ router.put("/:id", cinemaController.updateCinema);
  *       500:
  *         description: Internal server error
  */
-router.delete("/:id", cinemaController.deleteCinema);
+router.delete("/delete/:id", cinemaController.deleteCinema);
 
 export default router;

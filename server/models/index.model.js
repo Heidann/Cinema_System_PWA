@@ -13,10 +13,10 @@ import Ticket from "./ticket.model.js";
 import FoodDrink from "./food_drink.model.js";
 import FoodDrinkOrder from "./food_drink_order.model.js";
 import OrderItem from "./order_item.model.js";
+import sequelize from "../config/db.config.js";
 
 // Define relationships
 
-// Associations
 Cinema.hasMany(Room, { foreignKey: "cinema_id" });
 Room.belongsTo(Cinema, { foreignKey: "cinema_id" });
 
@@ -52,6 +52,16 @@ EmployeeSalary.belongsTo(Employee, { foreignKey: "employee_id" });
 
 Employee.hasOne(EmployeeAccount, { foreignKey: "employee_id" });
 EmployeeAccount.belongsTo(Employee, { foreignKey: "employee_id" });
+
+// Sync all models with the database
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database & tables created!");
+  })
+  .catch((error) => {
+    console.error("Error creating database & tables:", error);
+  });
 
 export {
   Movie,

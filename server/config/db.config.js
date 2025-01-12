@@ -1,13 +1,14 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
+
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
-    dialect: "mysql",
+    dialect: "postgres",
     pool: {
       max: 5, // Số lượng kết nối tối đa trong pool.
       min: 0, // Số lượng kết nối tối thiểu trong pool.
@@ -16,4 +17,16 @@ const sequelize = new Sequelize(
     },
   }
 );
+
+const dcconn = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log(":::::::  DB CONNECTED!");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
+
+dcconn();
+
 export default sequelize;

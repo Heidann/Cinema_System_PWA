@@ -12,22 +12,20 @@ const router = Router();
 
 /**
  * @swagger
- * /api/rooms:
+ * /api/room/get-all-rooms-by-cinema-id:
  *   get:
  *     summary: Retrieve a list of rooms by cinema ID
  *     tags: [Rooms]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               cinemaId:
- *                 type: integer
+ *     parameters:
+ *       - in: query
+ *         name: cinema_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the cinema
  *     responses:
  *       200:
- *         description: A list of rooms
+ *         description: A list of rooms by cinema ID
  *         content:
  *           application/json:
  *             schema:
@@ -46,11 +44,11 @@ const router = Router();
  *                   is_deleted:
  *                     type: boolean
  */
-router.get("/", roomController.getAllRoomByCinemaId);
+router.get("/get-all-rooms-by-cinema-id", roomController.getAllRoomByCinemaId);
 
 /**
  * @swagger
- * /api/rooms/{id}:
+ * /api/room/{id}:
  *   get:
  *     summary: Retrieve a room by id
  *     tags: [Rooms]
@@ -86,7 +84,7 @@ router.get("/:id", roomController.getRoomById);
 
 /**
  * @swagger
- * /api/rooms:
+ * /api/room/create:
  *   post:
  *     summary: Create a new room
  *     tags: [Rooms]
@@ -124,11 +122,11 @@ router.get("/:id", roomController.getRoomById);
  *       500:
  *         description: Internal server error
  */
-router.post("/", roomController.createRoom);
+router.post("/create", roomController.createRoom);
 
 /**
  * @swagger
- * /api/rooms/{id}:
+ * /api/room/edit/{id}:
  *   put:
  *     summary: Update an existing room
  *     tags: [Rooms]
@@ -173,11 +171,11 @@ router.post("/", roomController.createRoom);
  *       500:
  *         description: Internal server error
  */
-router.put("/:id", roomController.updateRoom);
+router.put("/edit/:id", roomController.updateRoom);
 
 /**
  * @swagger
- * /api/rooms/{id}:
+ * /api/room/delete/{id}:
  *   delete:
  *     summary: Delete a room
  *     tags: [Rooms]
@@ -196,6 +194,6 @@ router.put("/:id", roomController.updateRoom);
  *       500:
  *         description: Internal server error
  */
-router.delete("/:id", roomController.deleteRoom);
+router.delete("/delete/:id", roomController.deleteRoom);
 
 export default router;
