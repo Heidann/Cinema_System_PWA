@@ -6,7 +6,7 @@ Dự án "Cinema_system_PWA" là một hệ thống quản lý chuỗi rạp chi
 **2. Các chức năng chính của hệ thống**  
 "Cinema_system_PWA" cung cấp nhiều phân hệ chức năng chính, đáp ứng đầy đủ các nhu cầu kinh doanh và quản lý như:  
 
-- **Quản lý người dùng (User Management):** Đảm bảo việc quản lý thông tin và quyền sử dụng của mọi nhóm đối tượng, từ khách hàng đến nhân viên hệ thống.  
+- **Quản lý khách hàng (Customer Management):** Đảm bảo việc quản lý thông tin và quyền sử dụng của khách hàng.
 - **Quản lý rạp chiếu phim (Cinema Management):** Tổ chức và lưu trữ dữ liệu về rạp trong toàn mạng lưới, bao gồm địa chỉ, trang thiết bị và các dịch vụ đi kèm.  
 - **Quản lý phòng chiếu (Room Management):** Kiểm soát thông tin phòng chiếu như số phòng, sức chứa chỗ ngồi và trạng thái hoạt động.  
 - **Quản lý chỗ ngồi (Seat Management):** Thiết lập sơ đồ ghế chi tiết, hỗ trợ đặt trước chỗ ngồi và cung cấp công cụ quản lý trạng thái ghế theo phiên chiếu.  
