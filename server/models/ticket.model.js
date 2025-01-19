@@ -27,7 +27,7 @@ const Ticket = sequelize.define(
     },
   },
   {
-    tableName: "ticket",
+    tableName: "tickets",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

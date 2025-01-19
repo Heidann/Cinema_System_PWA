@@ -5,20 +5,34 @@ const Employee = sequelize.define(
   "employee",
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    code: { type: DataTypes.STRING(10), allowNull: false, unique: true },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: false,
       unique: true,
       validate: {
         isEmail: true,
       },
     },
+    adress: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
     phone_number: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(13),
+    },
+    sex: {
+      type: DataTypes.STRING(5),
+      allowNull: false,
+    },
+    cccd: {
+      type: DataTypes.STRING(15),
+      allowNull: false,
+      unique: true,
     },
     position: {
       type: DataTypes.ENUM(
@@ -35,10 +49,6 @@ const Employee = sequelize.define(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-    hire_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
     is_deleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -51,8 +61,5 @@ const Employee = sequelize.define(
     updatedAt: "updated_at",
   }
 );
-// Employee.associate = (models) => {
-//   Employee.hasMany(models.EmployeeSchedule, { foreignKey: "employee_id" });
-// };
 
 export default Employee;

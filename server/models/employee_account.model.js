@@ -19,18 +19,16 @@ const EmployeeAccount = sequelize.define(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM(
-        "manager",
-        "cashier",
-        "staff",
-        "cleaner",
-        "technician"
-      ),
+      type: DataTypes.ENUM("admin", "manager", "staff"),
       defaultValue: "staff",
       allowNull: false,
     },
     last_login: {
       type: DataTypes.DATE,
+    },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {

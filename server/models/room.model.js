@@ -10,7 +10,7 @@ const Room = sequelize.define(
       allowNull: false,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
     capacity: {
@@ -19,6 +19,10 @@ const Room = sequelize.define(
       validate: {
         min: 1,
       },
+    },
+    is_status: {
+      type: DataTypes.ENUM("active", "maintenance"),
+      defaultValue: "active",
     },
     is_deleted: {
       type: DataTypes.BOOLEAN,
@@ -32,10 +36,5 @@ const Room = sequelize.define(
     updatedAt: "updated_at",
   }
 );
-// Room.associate = (models) => {
-//   Room.belongsTo(models.Cinema, { foreignKey: "cinema_id" });
-//   Room.hasMany(models.Seat, { foreignKey: "room_id" });
-//   Room.hasMany(models.Schedule, { foreignKey: "room_id" });
-// };
 
 export default Room;

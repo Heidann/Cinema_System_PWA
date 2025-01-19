@@ -6,7 +6,7 @@ const Movie = sequelize.define(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     description: {
@@ -22,7 +22,11 @@ const Movie = sequelize.define(
     trailer_url: {
       type: DataTypes.TEXT,
     },
-
+    is_status: {
+      type: DataTypes.ENUM("coming_soon", "now_showing", "end_showing"),
+      defaultValue: "coming_soon",
+      allowNull: false,
+    },
     is_deleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,

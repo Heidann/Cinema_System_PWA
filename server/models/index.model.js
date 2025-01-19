@@ -7,7 +7,7 @@ import EmployeeSchedule from "./employee_schedule.model.js";
 import EmployeeSalary from "./employee_salary.model.js";
 import Seat from "./seat.model.js";
 import Schedule from "./schedule.model.js";
-import User from "./user.model.js";
+import Customer from "./customer.model.js";
 import Order from "./order.model.js";
 import Ticket from "./ticket.model.js";
 import FoodDrink from "./food_drink.model.js";
@@ -29,8 +29,8 @@ Schedule.belongsTo(Movie, { foreignKey: "movie_id" });
 Room.hasMany(Schedule, { foreignKey: "room_id" });
 Schedule.belongsTo(Room, { foreignKey: "room_id" });
 
-User.hasMany(Order, { foreignKey: "user_id" });
-Order.belongsTo(User, { foreignKey: "user_id" });
+Customer.hasMany(Order, { foreignKey: "customer_id" });
+Order.belongsTo(Customer, { foreignKey: "customer_id" });
 
 Schedule.hasMany(Ticket, { foreignKey: "schedule_id" });
 Ticket.belongsTo(Schedule, { foreignKey: "schedule_id" });
@@ -73,7 +73,7 @@ export {
   EmployeeSalary,
   Seat,
   Schedule,
-  User,
+  Customer,
   Order,
   Ticket,
   FoodDrink,

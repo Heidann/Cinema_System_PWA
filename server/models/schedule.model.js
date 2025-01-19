@@ -25,13 +25,17 @@ const Schedule = sequelize.define(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
+    is_status: {
+      type: DataTypes.ENUM("coming", "now showing", "end"),
+      defaultValue: "coming",
+    },
     is_deleted: {
       type: DataTypes.TINYINT,
       defaultValue: 0,
     },
   },
   {
-    tableName: "schedule",
+    tableName: "schedules",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

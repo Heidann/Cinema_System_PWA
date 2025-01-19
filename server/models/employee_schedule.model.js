@@ -21,18 +21,20 @@ const EmployeeSchedule = sequelize.define(
       type: DataTypes.TIME,
       allowNull: false,
     },
-    status: {
+    notes: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    is_status: {
       type: DataTypes.ENUM("scheduled", "completed", "missed"),
       defaultValue: "scheduled",
     },
-    notes: {
-      type: DataTypes.TEXT,
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   { tableName: "employee_schedules", timestamps: true }
 );
-// EmployeeSchedule.associate = (models) => {
-//   EmployeeSchedule.belongsTo(models.Employee, { foreignKey: "employee_id" });
-// };
 
 export default EmployeeSchedule;

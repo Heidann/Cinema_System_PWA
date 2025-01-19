@@ -32,9 +32,13 @@ const OrderItem = sequelize.define(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
+    id_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
-    tableName: "order_item",
+    tableName: "order_items",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

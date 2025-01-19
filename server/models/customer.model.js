@@ -1,16 +1,17 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.config.js";
 
-const User = sequelize.define(
-  "user",
+const Customer = sequelize.define(
+  "customer",
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    code: { type: DataTypes.STRING(10), allowNull: false, unique: true },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: false,
       unique: true,
       validate: {
@@ -18,12 +19,16 @@ const User = sequelize.define(
       },
     },
     password: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     phone_number: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(13),
+      allowNull: false,
+      unique: true,
     },
+    sex: { type: DataTypes.STRING(5), allowNull: false },
+    is_active: { type: DataTypes.BOOLEAN, defaultValue: true },
     created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
@@ -32,13 +37,9 @@ const User = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    is_deleted: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
   },
   {
-    tableName: "users",
+    tableName: "customers",
     timestamps: true,
   }
 );
@@ -46,4 +47,4 @@ const User = sequelize.define(
 // User.associate = (models) => {
 //   User.hasMany(models.Order, { foreignKey: "user_id" });
 // };
-export default User;
+export default Customer;

@@ -10,7 +10,7 @@ const Seat = sequelize.define(
       allowNull: false,
     },
     seat_number: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
     is_status: {
@@ -30,8 +30,4 @@ const Seat = sequelize.define(
   }
 );
 
-// Seat.associate = (models) => {
-//   Seat.belongsTo(models.Room, { foreignKey: "room_id" });
-//   Seat.hasMany(models.Ticket, { foreignKey: "seat_id" });
-// };
 export default Seat;

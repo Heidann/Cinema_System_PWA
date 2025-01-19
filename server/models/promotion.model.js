@@ -10,12 +10,21 @@ const Promotion = sequelize.define(
       primaryKey: true,
     },
     code: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
       unique: true,
     },
     discount: {
       type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    promotionType: {
+      type: DataTypes.ENUM("ticket", "food_drink"),
+      defaultValue: "ticket",
+      allowNull: false,
+    },
+    start_date: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
     expiry_date: {
@@ -26,8 +35,12 @@ const Promotion = sequelize.define(
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
-  { tableName: "promotion", timestamps: true }
+  { tableName: "promotions", timestamps: true }
 );
 
 export default Promotion;

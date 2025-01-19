@@ -5,7 +5,7 @@ const Order = sequelize.define(
   "order",
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    user_id: {
+    customer_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -15,6 +15,10 @@ const Order = sequelize.define(
     },
     promotion_code: {
       type: DataTypes.STRING(50),
+    },
+    actualPrice: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
     },
     payment_method: {
       type: DataTypes.ENUM("credit_card", "cash", "e_wallet"),
@@ -28,9 +32,13 @@ const Order = sequelize.define(
       type: DataTypes.ENUM("pending", "success", "failed"),
       defaultValue: "pending",
     },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
-    tableName: "order",
+    tableName: "orders",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

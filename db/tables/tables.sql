@@ -7,7 +7,7 @@ CREATE TABLE customers (
     name VARCHAR(255) NOT NULL, -- UNIQUE
     email VARCHAR(255) NOT NULL, -- UNIQUE
     password TEXT NOT NULL,
-    phone_number VARCHAR(20) NOT NULL, -- UNIQUE
+    phone_number VARCHAR(13) NOT NULL, -- UNIQUE
     sex VARCHAR(5) NOT NULL,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

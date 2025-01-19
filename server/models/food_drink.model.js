@@ -6,7 +6,7 @@ const FoodDrink = sequelize.define(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     price: {
@@ -16,13 +16,17 @@ const FoodDrink = sequelize.define(
     image_url: {
       type: DataTypes.TEXT,
     },
+    is_status: {
+      type: DataTypes.ENUM("available", "unavailable"),
+      defaultValue: "available",
+    },
     is_deleted: {
-      type: DataTypes.TINYINT,
-      defaultValue: 0,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
-    tableName: "food_drink",
+    tableName: "food_drinks",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

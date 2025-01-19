@@ -6,17 +6,18 @@ const Cinema = sequelize.define(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
     city: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
     address: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
+    is_active: { type: DataTypes.BOOLEAN, defaultValue: true },
     is_deleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -29,10 +30,5 @@ const Cinema = sequelize.define(
     updatedAt: "updated_at",
   }
 );
-
-// Cinema.associate = (models) => {
-//   Cinema.hasMany(models.Room, { foreignKey: "cinema_id" });
-//   Cinema.hasMany(models.Ticket, { foreignKey: "cinema_id" });
-// };
 
 export default Cinema;
