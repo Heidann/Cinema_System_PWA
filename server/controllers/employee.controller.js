@@ -118,15 +118,13 @@ Access: Protected */
 const updateEmployee = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, phone_number, position, salary, hire_date } = req.body;
+    const { name, address, sex, cccd } = req.body;
     const [updatedRows] = await Employee.update(
       {
         name,
-        email,
-        phone_number,
-        position,
-        salary,
-        hire_date,
+        address,
+        sex,
+        cccd,
         updated_at: DataTypes.NOW,
       },
       { where: { id, is_deleted: false } }

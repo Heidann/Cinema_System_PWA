@@ -172,15 +172,11 @@ router.post("/create", employeeController.createEmployeeWithAccount);
  *             properties:
  *               name:
  *                 type: string
- *               email:
+ *               address:
  *                 type: string
- *               phone_number:
+ *               sex:
  *                 type: string
- *               position:
- *                 type: string
- *               salary:
- *                 type: number
- *               hire_date:
+ *               cccd:
  *                 type: string
  *     responses:
  *       200:
@@ -192,14 +188,12 @@ router.post("/create", employeeController.createEmployeeWithAccount);
  *               properties:
  *               name:
  *                 type: string
- *               email:
+ *               address:
  *                 type: string
- *               phone_number:
+ *               sex:
  *                 type: string
- *               position:
+ *               cccd:
  *                 type: string
- *               salary:
- *                 type: number
  *       404:
  *         description: Employee not found
  *       500:
