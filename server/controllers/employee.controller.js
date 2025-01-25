@@ -152,7 +152,17 @@ const deleteEmployee = async (req, res) => {
     if (updatedRows === 0) {
       return res.status(404).json({ message: "Employee not found" });
     }
-    res.json({ message: "Employee deleted successfully" });
+
+    // Khóa tài khoản của nhân viên
+    const [updatedAccountRows] = await EmployeeAccount.update(
+      { is_deleted: true },
+      { where: { employee_id: id, is_deleted: false } }
+    );
+    if (updatedAccountRows === 0) {
+      return res.status(404).json({ message: "Employee account not found" });
+    }
+
+    res.json({ message: "Employee and account deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
