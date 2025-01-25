@@ -197,20 +197,19 @@ const getEmployeeAccountById = async (req, res) => {
     const { id } = req.params;
     const employeeAccount = await EmployeeAccount.findOne({
       where: { id },
-      attributes: ["id", "employee_id", "username", "role", "last_login"],
+      attributes: [
+        "id",
+        "employee_id",
+        "username",
+        "role",
+        "last_login",
+        "is_status",
+      ],
       include: [
         {
           model: Employee,
           as: "employee",
-          attributes: [
-            "id",
-            "name",
-            "email",
-            "phone_number",
-            "position",
-            "salary",
-            "hire_date",
-          ],
+          attributes: ["id", "code", "name", "position", "updated_at"],
         },
       ],
     });
