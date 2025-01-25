@@ -26,6 +26,11 @@ const EmployeeAccount = sequelize.define(
     last_login: {
       type: DataTypes.DATE,
     },
+    is_status: {
+      type: DataTypes.ENUM("Active", "Inactive"),
+      defaultValue: "Active",
+      allowNull: false,
+    },
     is_deleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,

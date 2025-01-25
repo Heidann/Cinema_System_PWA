@@ -3,6 +3,7 @@ import Employee from "../models/employee.model.js";
 import EmployeeAccount from "../models/employee_account.model.js";
 import EmployeeSalary from "../models/employee_salary.model.js";
 import EmployeeSchedule from "../models/employee_schedule.model.js";
+import generateEmployeeCode from "../utils/employeeCode.util.js";
 
 /* Desc: get all employees
 Route: GET /api/employees
@@ -42,39 +43,57 @@ const createEmployeeWithAccount = async (req, res) => {
     const {
       name,
       email,
+      address,
+      cccd,
       phone_number,
       position,
       salary,
-      hire_date,
       username,
       password,
       role,
+      cinema_id,
+      sex,
+      city_cinema,
     } = req.body;
 
-    // Kiểm tra dữ liệu đầu vào
+    // check input fields
     if (
       !name ||
       !email ||
+      !address ||
+      !cccd ||
       !position ||
       !salary ||
-      !hire_date ||
       !username ||
-      !password
+      !password ||
+      !cinema_id ||
+      !sex ||
+      !city_cinema
     ) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Tạo mới Employee
+    // Generate employee code
+    const employeeCode = await generateEmployeeCode(
+      city_cinema,
+      cinema_id,
+      sex
+    );
+
+    // create new employee
     const newEmployee = await Employee.create({
       name,
       email,
       phone_number,
+      address,
+      cccd,
       position,
       salary,
-      hire_date,
+      sex,
+      code: employeeCode,
     });
 
-    // Tạo mới EmployeeAccount
+    // create new employee account
     const newEmployeeAccount = await EmployeeAccount.create({
       employee_id: newEmployee.id,
       username,
@@ -84,7 +103,7 @@ const createEmployeeWithAccount = async (req, res) => {
 
     res.status(201).json({ employeeAccount: newEmployeeAccount });
   } catch (error) {
-    // Xử lý lỗi chi tiết hơn
+    // handle error
     if (error.name === "SequelizeUniqueConstraintError") {
       res.status(400).json({ message: "Username or email already exists" });
     } else {

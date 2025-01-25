@@ -18,7 +18,7 @@ const Employee = sequelize.define(
         isEmail: true,
       },
     },
-    adress: {
+    address: {
       type: DataTypes.TEXT,
       allowNull: false,
     },

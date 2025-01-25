@@ -38,7 +38,7 @@ router.get("/get-all-employee", employeeController.getAllEmployees);
 
 /**
  * @swagger
- * /api/employee/{id}:
+ * /api/employee/get-employee/{id}:
  *   get:
  *     summary: Retrieve an employee by id
  *     tags: [Employee]
@@ -87,20 +87,28 @@ router.get("/get-employee/:id", employeeController.getEmployeeById);
  *                 type: string
  *               email:
  *                 type: string
+ *               address:
+ *                 type: string
+ *               cccd:
+ *                 type: string
  *               phone_number:
  *                 type: string
  *               position:
  *                 type: string
  *               salary:
  *                 type: number
- *               hire_date:
- *                 type: string
  *               username:
- *                type: string
+ *                 type: string
  *               password:
- *                type: string
+ *                 type: string
  *               role:
- *                type: string
+ *                 type: string
+ *               cinema_id:
+ *                 type: integer
+ *               sex:
+ *                 type: string
+ *               city_cinema:
+ *                 type: string
  *     responses:
  *       201:
  *         description: The created employee
@@ -112,23 +120,31 @@ router.get("/get-employee/:id", employeeController.getEmployeeById);
  *                 id:
  *                   type: integer
  *                 name:
- *                  type: string
+ *                   type: string
  *                 email:
- *                  type: string
+ *                   type: string
+ *                 address:
+ *                   type: string
+ *                 cccd:
+ *                   type: string
  *                 phone_number:
- *                  type: string
+ *                   type: string
  *                 position:
- *                  type: string
+ *                   type: string
  *                 salary:
- *                  type: number
- *                 hire_date:
- *                  type: string
+ *                   type: number
  *                 username:
- *                  type: string
+ *                   type: string
  *                 password:
- *                  type: string
+ *                   type: string
  *                 role:
- *                  type: string
+ *                   type: string
+ *                 cinema_id:
+ *                   type: integer
+ *                 sex:
+ *                   type: string
+ *                 city_cinema:
+ *                   type: string
  *       500:
  *         description: Internal server error
  */
@@ -184,8 +200,6 @@ router.post("/create", employeeController.createEmployeeWithAccount);
  *                 type: string
  *               salary:
  *                 type: number
- *               hire_date:
- *                 type: string
  *       404:
  *         description: Employee not found
  *       500:
