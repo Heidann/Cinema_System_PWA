@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize";
+import bcrypt from "bcryptjs";
 import sequelize from "../config/db.config.js";
 
 const EmployeeAccount = sequelize.define(
@@ -27,7 +28,7 @@ const EmployeeAccount = sequelize.define(
       type: DataTypes.DATE,
     },
     is_status: {
-      type: DataTypes.ENUM("Active", "Inactive"),
+      type: DataTypes.ENUM("Active", "Locked"),
       defaultValue: "Active",
       allowNull: false,
     },
@@ -39,10 +40,32 @@ const EmployeeAccount = sequelize.define(
   {
     tableName: "employee_accounts",
     timestamps: false,
+    hooks: {
+      beforeCreate: async (employeeAccount) => {
+        if (employeeAccount.password) {
+          const salt = await bcrypt.genSalt(10);
+          employeeAccount.password = await bcrypt.hash(
+            employeeAccount.password,
+            salt
+          );
+        }
+      },
+      beforeUpdate: async (employeeAccount) => {
+        if (employeeAccount.changed("password")) {
+          const salt = await bcrypt.genSalt(10);
+          employeeAccount.password = await bcrypt.hash(
+            employeeAccount.password,
+            salt
+          );
+        }
+      },
+    },
   }
 );
-// EmployeeAccount.associate = (models) => {
-//   EmployeeAccount.belongsTo(models.Employee, { foreignKey: "employee_id" });
-// };
+
+// Method comparePassword
+EmployeeAccount.prototype.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 export default EmployeeAccount;

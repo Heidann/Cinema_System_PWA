@@ -34,7 +34,10 @@ const EmployeeSchedule = sequelize.define(
       defaultValue: false,
     },
   },
-  { tableName: "employee_schedules", timestamps: true }
+  {
+    tableName: "employee_schedules",
+    timestamps: false,
+  }
 );
 
 export default EmployeeSchedule;
