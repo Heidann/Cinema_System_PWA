@@ -1,4 +1,9 @@
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import boom from "boom";
 import EmployeeAccount from "../models/employee_account.model.js";
+import Employee from "../models/employee.model.js";
+import handleError from "../utils/errorHandler.util.js";
 
 /* Desc: get all employee accounts
 Route: GET /api/employee/accounts
@@ -17,7 +22,7 @@ const getAllEmployeeAccounts = async (req, res) => {
     });
     res.json(employeeAccounts);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleError(error, res);
   }
 };
 
@@ -46,11 +51,11 @@ const getEmployeeAccountById = async (req, res) => {
       ],
     });
     if (!employeeAccount) {
-      return res.status(404).json({ message: "Employee account not found" });
+      throw boom.notFound("Employee account not found");
     }
     res.json(employeeAccount);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleError(error, res);
   }
 };
 
@@ -63,7 +68,7 @@ const createEmployeeAccount = async (req, res) => {
 
     // Validate input fields
     if (!employee_id || !username || !password || !role) {
-      return res.status(400).json({ message: "All fields are required" });
+      throw boom.badRequest("All fields are required");
     }
 
     // Check if username already exists
@@ -71,7 +76,7 @@ const createEmployeeAccount = async (req, res) => {
       where: { username },
     });
     if (existingAccount) {
-      return res.status(400).json({ message: "Username already exists" });
+      throw boom.badRequest("Username already exists");
     }
 
     // Hash the password
@@ -96,7 +101,7 @@ const createEmployeeAccount = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleError(error, res);
   }
 };
 
@@ -109,14 +114,12 @@ const updateEmployeePassword = async (req, res) => {
 
     // check input fields
     if (!username || !oldPassword || !newPassword) {
-      return res.status(400).json({ message: "All fields are required" });
+      throw boom.badRequest("All fields are required");
     }
 
     // check old password vs new password
     if (oldPassword === newPassword) {
-      return res
-        .status(400)
-        .json({ message: "New password must be different from old password" });
+      throw boom.badRequest("New password must be different from old password");
     }
 
     // check exist employee account
@@ -124,13 +127,14 @@ const updateEmployeePassword = async (req, res) => {
       where: { username, is_deleted: false },
     });
     if (!employeeAccount) {
-      return res.status(404).json({ message: "Employee account not found" });
+      throw boom.notFound("Employee account not found");
     }
+
     // Kiểm tra mật khẩu cũ
-    // const isMatch = await employeeAccount.comparePassword(oldPassword);
-    // if (!isMatch) {
-    //   return res.status(400).json({ message: "Incorrect old password" });
-    // }
+    const isMatch = await employeeAccount.comparePassword(oldPassword);
+    if (!isMatch) {
+      throw boom.badRequest("Incorrect old password");
+    }
 
     // Cập nhật mật khẩu mới
     const salt = await bcrypt.genSalt(10);
@@ -139,7 +143,7 @@ const updateEmployeePassword = async (req, res) => {
 
     res.json({ message: "Password changed successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleError(error, res);
   }
 };
 
@@ -154,11 +158,11 @@ const deleteEmployeeAccount = async (req, res) => {
       { where: { id, is_deleted: 0 } }
     );
     if (updatedRows === 0) {
-      return res.status(404).json({ message: "Employee account not found" });
+      throw boom.notFound("Employee account not found");
     }
     res.json({ message: "Employee account deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleError(error, res);
   }
 };
 
@@ -169,11 +173,9 @@ const loginEmployeeAccount = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    console.log(username, password);
-
     // Check input fields
     if (!username || !password) {
-      return res.status(400).json({ message: "All fields are required" });
+      throw boom.badRequest("All fields are required");
     }
 
     // Check exist employee account
@@ -181,16 +183,15 @@ const loginEmployeeAccount = async (req, res) => {
       attributes: ["id", "username", "password", "role", "is_status"],
       where: { username, is_status: "Active" },
     });
-    console.log(employeeAccount.dataValues);
 
     if (!employeeAccount) {
-      return res.status(404).json({ message: "Employee account not found" });
+      throw boom.notFound("Employee account not found");
     }
 
     // Check password
     const isMatch = await employeeAccount.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Incorrect password" });
+      throw boom.badRequest("Incorrect password");
     }
 
     // Generate token
@@ -202,7 +203,7 @@ const loginEmployeeAccount = async (req, res) => {
 
     res.json({ token });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleError(error, res);
   }
 };
 
@@ -219,12 +220,12 @@ const lockEmployeeAccount = async (req, res) => {
       { where: { id, is_deleted: false } }
     );
     if (updatedRows === 0) {
-      return res.status(404).json({ message: "Employee account not found" });
+      throw boom.notFound("Employee account not found");
     }
 
     res.json({ message: "Employee account locked successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleError(error, res);
   }
 };
 

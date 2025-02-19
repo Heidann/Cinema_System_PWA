@@ -1,16 +1,7 @@
 import boom from "boom";
 import { body, param } from "express-validator";
 import EmployeeSchedule from "../models/employee_schedule.model.js";
-
-// Utility function for centralized error handling
-const handleError = (error, res) => {
-  if (error.isBoom) {
-    res.status(error.output.statusCode).json(error.output.payload);
-  } else {
-    const boomError = boom.internal("An unexpected error occurred", error);
-    res.status(boomError.output.statusCode).json(boomError.output.payload);
-  }
-};
+import handleError from "../utils/errorHandler.util.js";
 
 /* Desc: get all employee schedules 
 Route: GET /api/employee/schedules

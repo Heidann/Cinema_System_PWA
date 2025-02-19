@@ -1,12 +1,9 @@
 import { DataTypes } from "sequelize";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import boom from "boom";
 import Employee from "../models/employee.model.js";
 import EmployeeAccount from "../models/employee_account.model.js";
-import EmployeeSalary from "../models/employee_salary.model.js";
-import EmployeeSchedule from "../models/employee_schedule.model.js";
 import generateEmployeeCode from "../utils/employeeCode.util.js";
+import handleError from "../utils/errorHandler.util.js";
 
 /* Desc: get all employees
 Route: GET /api/employees
@@ -16,7 +13,7 @@ const getAllEmployees = async (req, res) => {
     const employees = await Employee.findAll({ where: { is_deleted: false } });
     res.json(employees);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleError(error, res);
   }
 };
 
@@ -34,12 +31,7 @@ const getEmployeeById = async (req, res) => {
     }
     res.json(employee);
   } catch (error) {
-    if (error.isBoom) {
-      res.status(error.output.statusCode).json(error.output.payload);
-    } else {
-      const boomError = boom.internal("Failed to get employee", error);
-      res.status(boomError.output.statusCode).json(boomError.output.payload);
-    }
+    handleError(error, res);
   }
 };
 
@@ -114,11 +106,8 @@ const createEmployeeWithAccount = async (req, res) => {
     if (error.name === "SequelizeUniqueConstraintError") {
       const boomError = boom.badRequest("Username or email already exists");
       res.status(boomError.output.statusCode).json(boomError.output.payload);
-    } else if (error.isBoom) {
-      res.status(error.output.statusCode).json(error.output.payload);
     } else {
-      const boomError = boom.internal("Failed to create employee", error);
-      res.status(boomError.output.statusCode).json(boomError.output.payload);
+      handleError(error, res);
     }
   }
 };
@@ -146,12 +135,7 @@ const updateEmployee = async (req, res) => {
     const updatedEmployee = await Employee.findOne({ where: { id } });
     res.json(updatedEmployee);
   } catch (error) {
-    if (error.isBoom) {
-      res.status(error.output.statusCode).json(error.output.payload);
-    } else {
-      const boomError = boom.internal("Failed to update employee", error);
-      res.status(boomError.output.statusCode).json(boomError.output.payload);
-    }
+    handleError(error, res);
   }
 };
 
@@ -180,12 +164,7 @@ const deleteEmployee = async (req, res) => {
 
     res.json({ message: "Employee and account deleted successfully" });
   } catch (error) {
-    if (error.isBoom) {
-      res.status(error.output.statusCode).json(error.output.payload);
-    } else {
-      const boomError = boom.internal("Failed to delete employee", error);
-      res.status(boomError.output.statusCode).json(boomError.output.payload);
-    }
+    handleError(error, res);
   }
 };
 

@@ -859,4 +859,10 @@ router.post(
  */
 router.delete("/schedules/:id", eScheduleController.deleteEmployeeSchedule);
 
+//==========Employee Salary Management==========
+// Xem bảng lương nhân viên	GET	/api/admin/employees/salaries	Xem danh sách bảng lương nhân viên.
+// Xem chi tiết lương nhân viên	GET	/api/admin/employees/salaries/:id	Xem chi tiết lương nhân viên theo ID.
+// Tạo bảng lương nhân viên	POST	/api/admin/employees/salaries	Tạo bảng lương mới cho nhân viên.
+// Cập nhật lương nhân viên	PUT	/api/admin/employees/salaries/:id	Cập nhật lương, thưởng, khấu trừ.
+// Thanh toán lương nhân viên	PUT	/api/admin/employees/salaries/:id/pay	Đánh dấu lương nhân viên đã được thanh toán.
 export default router;
